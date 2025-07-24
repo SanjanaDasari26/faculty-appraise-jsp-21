@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { LogOut, FileText, Download } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { generateFacultyReport, downloadPDF } from "@/lib/pdfGenerator";
 import PublicationsTab from "@/components/faculty/PublicationsTab";
 import SeminarsTab from "@/components/faculty/SeminarsTab";
 import EventsTab from "@/components/faculty/EventsTab";
@@ -42,11 +43,30 @@ const Dashboard = () => {
   };
 
   const handleDownloadReport = () => {
+    if (!currentUser) return;
+    
+    // Get faculty stats
+    const publications = JSON.parse(localStorage.getItem(`publications_${currentUser.id}`) || "[]");
+    const seminars = JSON.parse(localStorage.getItem(`seminars_${currentUser.id}`) || "[]");
+    const events = JSON.parse(localStorage.getItem(`events_${currentUser.id}`) || "[]");
+    const lectures = JSON.parse(localStorage.getItem(`lectures_${currentUser.id}`) || "[]");
+    const projects = JSON.parse(localStorage.getItem(`projects_${currentUser.id}`) || "[]");
+    
+    const stats = {
+      publications: publications.length,
+      seminars: seminars.length,
+      events: events.length,
+      lectures: lectures.length,
+      projects: projects.length,
+    };
+    
+    const pdf = generateFacultyReport(currentUser, stats);
+    downloadPDF(pdf, `${currentUser.name}_Faculty_Report.pdf`);
+    
     toast({
-      title: "Download Started",
-      description: "Your report is being generated...",
+      title: "Download Complete",
+      description: "Your report has been generated and downloaded",
     });
-    // PDF generation would be implemented here
   };
 
   if (!currentUser) {

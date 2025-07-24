@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { LogOut, Users, FileText, Download } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { generateAllFacultyReports, downloadPDF } from "@/lib/pdfGenerator";
 import FacultyReportsTab from "@/components/admin/FacultyReportsTab";
 import FacultyListTab from "@/components/admin/FacultyListTab";
 
@@ -39,11 +40,13 @@ const AdminDashboard = () => {
   };
 
   const handleDownloadAllReports = () => {
+    const pdf = generateAllFacultyReports();
+    downloadPDF(pdf, `All_Faculty_Reports_${new Date().toISOString().split('T')[0]}.pdf`);
+    
     toast({
-      title: "Download Started",
-      description: "All faculty reports are being generated...",
+      title: "Download Complete",
+      description: "All faculty reports have been generated and downloaded",
     });
-    // PDF generation for all reports would be implemented here
   };
 
   if (!currentUser) {

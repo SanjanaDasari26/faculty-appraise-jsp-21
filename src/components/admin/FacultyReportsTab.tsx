@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { FileText, Download } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { generateFacultyReport, downloadPDF } from "@/lib/pdfGenerator";
 
 const FacultyReportsTab = () => {
   const [facultyReports, setFacultyReports] = useState<any[]>([]);
@@ -40,9 +41,15 @@ const FacultyReportsTab = () => {
   };
 
   const handleDownloadReport = (facultyId: string, facultyName: string) => {
+    const faculty = facultyReports.find(f => f.id === facultyId);
+    if (!faculty) return;
+    
+    const pdf = generateFacultyReport(faculty, faculty.stats);
+    downloadPDF(pdf, `${facultyName}_Faculty_Report.pdf`);
+    
     toast({
-      title: "Download Started",
-      description: `Generating report for ${facultyName}...`,
+      title: "Download Complete",
+      description: `Report for ${facultyName} has been downloaded`,
     });
   };
 
