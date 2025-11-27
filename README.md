@@ -1,4 +1,4 @@
-# Welcome to your Lovable project
+# Welcome to Faculty Appraisal project
 
 ## Project info
 
@@ -8,7 +8,7 @@
 
 There are several ways of editing your application.
 
-**Use Lovable**
+**Use This**
 
 Simply visit the [Lovable Project](https://lovable.dev/projects/bce524f2-df74-4d4e-9fd7-fc67e0d28e09) and start prompting.
 
@@ -62,9 +62,9 @@ This project is built with:
 
 ## How can I deploy this project?
 
-Simply open [Lovable](https://lovable.dev/projects/bce524f2-df74-4d4e-9fd7-fc67e0d28e09) and click on Share -> Publish.
+Simply open [Faculty Appraisal](https://lovable.dev/projects/bce524f2-df74-4d4e-9fd7-fc67e0d28e09) and click on Share -> Publish.
 
-## Can I connect a custom domain to my Lovable project?
+## Can I connect a custom domain to my project?
 
 Yes, you can!
 
